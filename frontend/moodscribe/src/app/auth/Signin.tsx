@@ -55,29 +55,31 @@ const Signin = () => {
         <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
           <InputField
             label='FULL NAME'
+            labelClass='text-[#e7c1a3] mt-9'
             type={'text'}
             control={control}
             registration={{ ...register('fullName') }}
             placeholder='Enter your full name'
             errorMessage={errors.fullName?.message}
             isRequired
-            className='bg-transparent border-0 border-b rounded-none mt-2'
+            className='bg-transparent border-b  border-gray-400  mt-2'
           />
           <InputField
             registration={{ ...register('password') }}
             type={showPassword ? 'text' : 'password'}
             control={control}
             label='PASSWORD'
+            labelClass='text-[#e7c1a3] mt-9'
             placeholder='Enter your password'
             valid={getValues('password') && !errors.password ? 'success' : ''}
             errorMessage={errors.password?.message}
             isRequired
             handleShowPassword={handleShowPassword}
-            className='bg-transparent border-0 border-b rounded-none mt-2'
+            className='bg-transparent border-b  border-gray-400 mt-2'
           />
           <button
             type='submit'
-            className='py-3 mb-5 mt-12 text-[#64eafa] font-semibold bg-slate-300 bg-opacity-50 hover:bg-cyan-500 hover:text-white w-full border rounded-3xl'
+            className='py-3 mb-5 mt-12 text-teal-100 font-semibold bg-slate-300 bg-opacity-50 hover:bg-cyan-500 hover:text-white w-full border rounded-3xl'
           >
             LOGIN
           </button>
@@ -86,7 +88,7 @@ const Signin = () => {
           Don't have an account? {'  '}
           <Link
             to='/auth/signup'
-            className='text-[#64eafa] hover:text-cyan-400 text-lg italic'
+            className='text-teal-100 hover:text-cyan-400 text-lg italic'
           >
             Signup
           </Link>
