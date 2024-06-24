@@ -3,6 +3,7 @@ import sha1 from 'sha1';
 import { generateToken } from "../utils/jwt";
 
 class AuthController {
+    // Login a User
     static async loginUser(req, res) {
         const { email, password} = req.body;
 
