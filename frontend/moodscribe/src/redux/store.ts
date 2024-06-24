@@ -17,13 +17,19 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import quoteReducer from '../redux/quotes/features';
+import { registrationReducer } from './auth/features';
+
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
 };
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  signup: registrationReducer,
+  quotes: quoteReducer,
+});
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -36,6 +42,8 @@ export const store = configureStore({
       },
     }),
 });
+
+// storage.removeItem('persist:root');
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;

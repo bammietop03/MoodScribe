@@ -6,48 +6,51 @@ import logo from '../assets/logo.png';
 
 export const Header: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const genericHamburgerLine = `h-1 w-8 my-1 rounded-full bg-primary-300 transition ease transform duration-300`;
+  const genericHamburgerLine = `h-[3px] w-7 rounded-full bg-cyan-800 transition ease transform duration-300`;
 
   const location = useLocation();
 
   const navItems = [
+    { name: 'Journal', href: '/dashboard' },
     { name: 'Login', href: '/auth/signin' },
     { name: 'Signup', href: '/auth/signup' },
   ];
 
   return (
-    <header className='container mx-auto'>
-      <div className='flex h-16 items-center justify-between py-3'>
+    <header className=' absolute right-0 left-0 z-50 bg-white px-4'>
+      <div className='flex items-center justify-between h-16 py-3'>
         <Link to='/'>
           <img className='' src={logo} alt='Moodscribe logo' />
         </Link>
 
         <button
-          className='group flex h-12 w-12 flex-col items-center justify-center lg:hidden'
+          className='group flex h-12 w-12 flex-col items-center justify-center md:hidden'
           onClick={() => setIsOpen(!isOpen)}
         >
           <div
             className={`${genericHamburgerLine} ${
               isOpen
-                ? 'translate-y-3 rotate-45 opacity-50 group-hover:opacity-100'
-                : 'opacity-50 group-hover:opacity-100'
-            }`}
-          />
-          <div
-            className={`${genericHamburgerLine} ${
-              isOpen ? 'opacity-0' : 'opacity-50 group-hover:opacity-100'
+                ? 'translate-y-3 rotate-45 opacity-50 group-hover:opacity-100 my-1'
+                : 'opacity-50 group-hover:opacity-100 my-[3px]'
             }`}
           />
           <div
             className={`${genericHamburgerLine} ${
               isOpen
-                ? '-translate-y-3 -rotate-45 opacity-50 group-hover:opacity-100'
-                : 'opacity-50 group-hover:opacity-100'
+                ? 'opacity-0 my-1'
+                : 'opacity-50 group-hover:opacity-100 my-[3px]'
+            }`}
+          />
+          <div
+            className={`${genericHamburgerLine} ${
+              isOpen
+                ? '-translate-y-3 -rotate-45 opacity-50 group-hover:opacity-100 my-1'
+                : 'opacity-50 group-hover:opacity-100 my-[3px]'
             }`}
           />
         </button>
 
-        <ul className='hidden items-center space-x-6 font-semibold text-cyan-800  lg:flex'>
+        <ul className='hidden items-center space-x-12 font-semibold text-cyan-800 md:flex'>
           {navItems.map((item) => {
             const isActive = item.href === location.pathname;
             return (
@@ -68,7 +71,7 @@ export const Header: FC = () => {
       </div>
       <ul
         className={clsx(
-          'text-gray-85 my-4 items-center space-y-5 font-semibold',
+          'text-cyan-800 my-4 items-center space-y-5 font-semibold pl-4 pt-2',
           isOpen ? 'block' : 'hidden'
         )}
       >

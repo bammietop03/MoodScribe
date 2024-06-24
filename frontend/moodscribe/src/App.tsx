@@ -18,7 +18,7 @@ const App: FC = () => {
           <Route path='/auth/signin' element={<Signin />} />
 
           <Route
-            path='/dashboard'
+            path='/dashboard/*'
             element={
               <PrivateRoute
                 element={Dashboard}

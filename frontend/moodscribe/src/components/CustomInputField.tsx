@@ -1,32 +1,13 @@
 import React, { FC } from 'react';
-import {
-  //   FieldError,
-  //   FieldErrorsImpl,
-  //   Merge,
-  Controller,
-  UseFormRegisterReturn,
-} from 'react-hook-form';
+import { Controller, UseFormRegisterReturn } from 'react-hook-form';
 import { Icon } from '@iconify/react';
-// import Select, { components, OptionProps, StylesConfig } from 'react-select';
-// import { OptionType } from '@/utils/types';
 
 import { ErrorMessage } from './ErrorMessage';
+import clsx from 'clsx';
 
-// type HasErrorType = Merge<
-//   FieldError,
-//   (
-//     | Merge<
-//         FieldError,
-//         FieldErrorsImpl<{
-//           name: string;
-//           id: string;
-//         }>
-//       >
-//     | undefined
-//   )[]
-// >;
 interface Props {
   label: string;
+  labelClass?: string;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   control: any;
   showStepTwo?: boolean;
@@ -35,9 +16,7 @@ interface Props {
   isSearchable?: boolean;
   defaultValue?: string;
   placeholder?: string;
-  //   hasError?: HasErrorType | undefined;
   errorMessage?: string;
-  //   options?: OptionType[];
   type?: string;
   registration: Partial<UseFormRegisterReturn>;
   handleShowPassword?: () => void;
@@ -56,15 +35,14 @@ const CustomInputField: FC<Props> = (
     disabled = false,
     type,
     label,
+    labelClass,
     handleShowPassword,
     control,
     registration,
     defaultValue,
     isRequired,
     placeholder,
-    // hasError,
     errorMessage,
-    // options,
     className,
   },
   ref
@@ -73,37 +51,14 @@ const CustomInputField: FC<Props> = (
 
   return (
     <div className='relative space-y-1'>
-      <label htmlFor={name} id={name} className='text-[#e7c1a3] mt-9 block'>
+      <label htmlFor={name} id={name} className={clsx('block', labelClass)}>
         {' '}
         {label}
-        {isRequired && <span className='ml-1 text-red-600'>*</span>}
+        {isRequired && (
+          <span className='ml-1 align-middle text-red-600'>*</span>
+        )}
       </label>
-      {/* {options ? (
-        <Controller
-          name={name as string}
-          control={control}
-          render={({ field: { onChange, value, onBlur } }) => (
-            <Select
-              name={name as string}
-              options={options}
-              value={value}
-              placeholder={placeholder}
-              onChange={(selectedOption) => onChange(selectedOption)}
-              onBlur={onBlur}
-              isClearable={isClearable}
-              isSearchable={isSearchable}
-              styles={customStyles}
-              components={{
-                IndicatorSeparator: () => null,
-                Option: CustomOption,
-              }}
-              noOptionsMessage={({ inputValue }) =>
-                `No result found for "${inputValue}"`
-              }
-            />
-          )}
-        />
-      ) : ( */}
+
       <Controller
         name={name as string}
         control={control}
@@ -114,10 +69,10 @@ const CustomInputField: FC<Props> = (
               type={type}
               ref={ref}
               id={field.name}
-              value={field.value}
+              value={field.value || ''}
               onChange={field.onChange}
               onBlur={field.onBlur}
-              className={`focus-within:border-secondary pb-3 w-full text-gray-400 rounded-lg border border-gray-200 outline-none  disabled:bg-gray-100 ${
+              className={`focus-within:border-secondary pb-3 w-full text-gray-400 outline-none  disabled:bg-gray-100 ${
                 fieldState.error ? 'border-red-500' : ''
               } ${className}`}
               placeholder={placeholder}
@@ -142,10 +97,9 @@ const CustomInputField: FC<Props> = (
           </div>
         )}
       />
-      {/* )} */}
 
       {valid === 'success' && (name === 'password' || name === 'email') ? (
-        <span className='text-xs text-success-300'>Perfect!</span>
+        <span className='text-xs text-teal-300'>Perfect!</span>
       ) : null}
 
       {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
