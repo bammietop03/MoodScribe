@@ -1,11 +1,25 @@
 import { toast } from 'sonner';
 
+const handleToast = (err: string) => {
+  let toastId = null;
+
+  if (!toastId) {
+    toastId = toast.error(err);
+  }
+
+  return () => {
+    if (toastId) {
+      toast.dismiss(toastId);
+    }
+  };
+};
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const handleErrors = (err: any) => {
   const response = err.response;
   switch (response?.status) {
     case 500:
-      toast.error(response.data.message);
+      handleToast(response.data.error);
       break;
 
     case 400:
@@ -17,7 +31,7 @@ export const handleErrors = (err: any) => {
         if (Array.isArray(response.data.errors)) {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any
           response.data.errors.forEach((each: any) => {
-            toast.error(each.message);
+            handleToast(each.message);
           });
         } else if (typeof response.data.errors === 'object') {
           if (response.data.errors.length > 0) {
@@ -25,17 +39,17 @@ export const handleErrors = (err: any) => {
               const errors = response.data.errors[field];
               // eslint-disable-next-line @typescript-eslint/no-explicit-any
               errors.forEach((errorMessage: any) => {
-                toast.error(errorMessage);
+                handleToast(errorMessage);
               });
             });
           } else {
-            toast.error(response.data.errors.message);
+            handleToast(response.data.errors.message);
           }
         }
       } else if (response.data.error) {
-        toast.error(response.data.error);
+        handleToast(response.data.error);
       } else {
-        toast.error(response.data.message);
+        handleToast(response.data.message);
       }
       break;
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Home from '../dashoardHome/Home';
 import SideNavbar from './components/SideNavbar';
-import Journals from '../Journals';
+import Journals from '../journals/Journals';
 import Analysis from '../Analysis';
 import Resources from '../Resources';
 import { Icon } from '@iconify/react';

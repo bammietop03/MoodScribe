@@ -72,7 +72,7 @@ const CustomInputField: FC<Props> = (
               value={field.value || ''}
               onChange={field.onChange}
               onBlur={field.onBlur}
-              className={`focus-within:border-secondary pb-3 w-full text-gray-400 outline-none  disabled:bg-gray-100 ${
+              className={`focus-within:border-secondary focus:border-cyan-600  pb-3 w-full text-gray-400 outline-none  disabled:bg-gray-100 ${
                 fieldState.error ? 'border-red-500' : ''
               } ${className}`}
               placeholder={placeholder}
@@ -80,19 +80,18 @@ const CustomInputField: FC<Props> = (
               {...registration}
             />
             {handleShowPassword && (
-              <span className='absolute right-3 mt-1'>
-                <button
-                  type='button'
-                  onClick={handleShowPassword}
-                  title={type === 'text' ? 'Hide password' : 'Show password'}
-                >
-                  {type === 'password' ? (
-                    <Icon icon='bx:show' className='text-xl text-gray-400' />
-                  ) : (
-                    <Icon icon='ci:hide' className='text-xl text-gray-400' />
-                  )}
-                </button>
-              </span>
+              <button
+                type='button'
+                onClick={handleShowPassword}
+                title={type === 'text' ? 'Hide password' : 'Show password'}
+                className='absolute right-3 mt-1'
+              >
+                {type === 'password' ? (
+                  <Icon icon='bx:show' className='text-xl text-gray-400' />
+                ) : (
+                  <Icon icon='ci:hide' className='text-xl text-gray-400' />
+                )}
+              </button>
             )}
           </div>
         )}

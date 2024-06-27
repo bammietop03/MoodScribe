@@ -1,8 +1,12 @@
 import { FC } from 'react';
 import { Route } from '../../../../utils/types';
 import { Icon } from '@iconify/react';
+import 'flowbite/dist/flowbite.min.css';
+import { Tooltip } from 'flowbite-react';
 import { Link, useLocation } from 'react-router-dom';
 import Logo from '../../../../assets/dashboard/logo-transparent.png';
+import { useAppDispatch } from '../../../../redux/store';
+import { signout } from '../../../../redux/auth/features';
 
 const routes: Route[] = [
   {
@@ -38,7 +42,7 @@ interface Props {
 }
 
 const SideNavbar: FC<Props> = ({ toggleNav }) => {
-  //   const [openTab, setOpenTab] = useState(0);
+  const dispatch = useAppDispatch();
   const location = useLocation();
 
   return (
@@ -70,22 +74,13 @@ const SideNavbar: FC<Props> = ({ toggleNav }) => {
                         } flex w-full gap-4 justify-between items-center px-2 h-12 rounded group my-3`}
                       >
                         <div className='flex items-center w-full gap-2 p-3 rounded-sm group-hover:text-slate-800 hover:bg-slate-300'>
-                          <div
-                            className={`${
-                              window.location.href === navItem.route
-                                ? 'bg-white border-none'
-                                : 'text-gray-400'
-                            } w-9 h-9 font-medium flex items-center justify-center text-lg`}
-                          >
+                          <div className='w-9 h-9 font-medium flex items-center justify-center text-lg'>
                             <Icon
                               icon={navItem.icon}
                               className='w-5 h-5 group-hover:text-primary-500'
                             />
                           </div>
-                          <p
-                            // id={navItem.name}
-                            className='font-medium text-left sub_text nav_link'
-                          >
+                          <p className='font-medium text-left sub_text nav_link'>
                             {navItem.name}
                           </p>
                         </div>
@@ -96,6 +91,19 @@ const SideNavbar: FC<Props> = ({ toggleNav }) => {
                 );
               })}
             </div>
+          </div>
+          <div
+            className='tooltip flex items-end px-9 h-96'
+            onClick={() => dispatch(signout())}
+          >
+            <Tooltip content='Logout' placement='top'>
+              <button
+                type='button'
+                className='text-white bg-cyan-700 hover:bg-teal-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800'
+              >
+                <Icon icon='tabler:logout' className='text-white w-7 h-7' />
+              </button>
+            </Tooltip>
           </div>
         </div>
       </>

@@ -1,18 +1,28 @@
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { FC, FormEvent, useState } from 'react';
+import { FC, FormEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../redux/store';
 import clsx from 'clsx';
-import { addQuote } from '../../../redux/quotes/features';
+import {
+  addQuote,
+  fetchQuotes,
+  deleteQuote,
+} from '../../../redux/quotes/features';
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
-  const quotes = useAppSelector((state) => state.quotes.quotes);
+  const { quotes } = useAppSelector((state) => state.quotes);
+  const { status } = useAppSelector((state) => state.quote);
   const [newQuote, setNewQuote] = useState('');
 
   const getRandomColor = () => {
     const colors = ['#FFCDD2', '#C8E6C9', '#BBDEFB', '#FFECB3', '#f4438a'];
     return colors[Math.floor(Math.random() * colors.length)];
   };
+
+  useEffect(() => {
+    dispatch(fetchQuotes());
+    status === 'succeeded' && dispatch(fetchQuotes());
+  }, [dispatch, status]);
 
   const getRandomIcon = () => {
     const icons = [
@@ -41,7 +51,7 @@ const Home: FC = () => {
 
   return (
     <div>
-      <div className='container mx-auto max-w-2xl px-4 text-white h-screen'>
+      <div className='container mx-auto max-w-2xl px-4 mb-8 text-white'>
         <section className='py-8 text-center'>
           <h1 className='text-4xl tracking-wider'>
             <Icon
@@ -59,19 +69,30 @@ const Home: FC = () => {
           </p>
         </section>
         <section className='sm:grid grid-cols-auto-fit-100 gap-4'>
-          {quotes.map((quote, idx) => (
+          {quotes.quote.map((quote, idx) => (
             <div
-              key={idx}
+              key={quote._id || idx}
               className={clsx(
-                'p-2 my-4 sm:my-0 rounded-sm',
+                'my-4 sm:my-0 rounded-sm  relative',
                 idx % 3 === 0 ? 'col-span-2' : 'col-span-1'
               )}
               style={{
                 background: quote.color,
               }}
+              onClick={() =>
+                quote._id && dispatch(deleteQuote(quote._id as number))
+              }
             >
-              <div className='flex justify-between items-center space-x-5'>
-                <p>
+              <div className='flex justify-between items-center relative group'>
+                {idx > 3 && (
+                  <div className='absolute flex justify-center items-center bg-black bg-opacity-35 w-full h-full opacity-0 group-hover:opacity-100 transition-all duration-1000 ease-in-out'>
+                    <Icon
+                      icon='ic:baseline-delete'
+                      className='w-6 h-6 cursor-pointer'
+                    />
+                  </div>
+                )}
+                <p className='px-2 py-3'>
                   {idx === 0 ? (
                     <span className='block font-semibold text-lg text-gray-500'>
                       Hi John Doe{' '}
@@ -81,7 +102,7 @@ const Home: FC = () => {
                 </p>
                 <Icon
                   icon={quote.icon}
-                  className='w-9 h-9 flex-shrink-0'
+                  className='w-9 h-9 flex-shrink-0 mx-2'
                   style={{ color: defaultIconColor[idx] }}
                 />
               </div>
@@ -102,7 +123,7 @@ const Home: FC = () => {
               name='newQuote'
               value={newQuote}
               onChange={(e) => setNewQuote(e.target.value)}
-              className='outline-none w-full py-2 px-3 mt-3 mb-7 text-slate-800 rounded-sm'
+              className='outline-none w-full py-2 px-3 mt-3 mb-7 text-slate-800 rounded-sm focus:border-cyan-600'
               // placeholder='Enter a new quote'
             />
             <button

@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import History from './dashboard/components/History';
-import NewEntry from './dashboard/components/NewEntry';
+import History from './components/History';
+import NewEntry from './components/NewEntry';
 import clsx from 'clsx';
 
 const Journals = () => {
