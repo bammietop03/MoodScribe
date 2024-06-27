@@ -7,7 +7,10 @@ import clsx from 'clsx';
 
 import { ErrorMessage } from './ErrorMessage';
 
-type ReactDatePickPropsWithoutOnChange = Omit<DatePickerProps, 'onChange'>;
+type ReactDatePickPropsWithoutOnChange = Omit<
+  DatePickerProps,
+  'onChange' | 'selected'
+>;
 
 type InputDateFieldProps = {
   name: string;

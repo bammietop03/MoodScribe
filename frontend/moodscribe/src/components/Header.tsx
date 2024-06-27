@@ -3,21 +3,30 @@ import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import logo from '../assets/logo.png';
+import { RootState, useAppDispatch, useAppSelector } from '../redux/store';
+import { signout } from '../redux/auth/features';
 
 export const Header: FC = () => {
+  const dispatch = useAppDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const { token } = useAppSelector((state: RootState) => state.signin);
   const genericHamburgerLine = `h-[3px] w-7 rounded-full bg-cyan-800 transition ease transform duration-300`;
 
   const location = useLocation();
 
-  const navItems = [
-    { name: 'Journal', href: '/dashboard' },
-    { name: 'Login', href: '/auth/signin' },
-    { name: 'Signup', href: '/auth/signup' },
-  ];
-
+  const navItems = !token
+    ? [
+        { name: 'Journal', href: '/dashboard' },
+        { name: 'Login', href: '/auth/signin' },
+        { name: 'Signup', href: '/auth/signup' },
+      ]
+    : [
+        { name: 'Journal', href: '/dashboard' },
+        { name: 'Logout', href: '' },
+      ];
+  console.log('Token', token);
   return (
-    <header className=' absolute right-0 left-0 z-50 bg-white px-4'>
+    <header className=' absolute right-0 left-0 z-50 bg-white pl-4 pr-6'>
       <div className='flex items-center justify-between h-16 py-3'>
         <Link to='/'>
           <img className='' src={logo} alt='Moodscribe logo' />
@@ -61,6 +70,7 @@ export const Header: FC = () => {
                     isActive && 'text-primary-100'
                   )}
                   to={item.href}
+                  onClick={() => item.name === 'Logout' && dispatch(signout())}
                 >
                   {item.name}
                 </Link>
@@ -82,6 +92,7 @@ export const Header: FC = () => {
               <Link
                 className={clsx('', isActive && 'text-primary-100')}
                 to={item.href}
+                onClick={() => item.name === 'Logout' && dispatch(signout())}
               >
                 {item.name}
               </Link>

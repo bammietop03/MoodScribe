@@ -5,7 +5,7 @@ export interface SignupValues {
 }
 
 export interface SigninValues {
-  fullName: string;
+  email: string;
   password: string;
 }
 
@@ -16,28 +16,34 @@ export interface Route {
   icon: string;
 }
 
-export interface Quotes {
+export interface QuoteItem {
   quote: string;
   icon: string;
   color: string;
-  id?: number;
+  _id?: number;
 }
 
-export interface MoodSmileys {
+export interface Quote {
+  quote: QuoteItem[];
+}
+
+export interface MoodEmojis {
   icon: string;
   name: string;
   value: number;
 }
 
-export interface Mood {
-  moodSmiley: MoodSmileys;
+export interface JournalItem {
+  mood: MoodEmojis;
   title: string;
   content: string;
   date: Date;
+  _id?: number;
+}
+export interface JournalValues {
+  journals: JournalItem[];
 }
 
-export interface SignupValues {
-  fullName: string;
-  email: string;
-  password: string;
+export interface JwtPayload {
+  exp: number;
 }

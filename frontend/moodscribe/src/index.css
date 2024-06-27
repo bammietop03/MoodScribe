@@ -17,3 +17,10 @@ body {
   input {
   width: 100%;
 }
+
+[type='text']:focus,
+[type='password']:focus,
+select:focus,
+textarea:focus {
+  box-shadow: none;
+}

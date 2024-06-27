@@ -2,14 +2,15 @@ import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
+import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import logo from '../../assets/logo-transparent.png';
 import { Link } from 'react-router-dom';
 import { SignupValues } from '../../utils/types';
 import InputField from '../../components/CustomInputField';
 import { Icon } from '@iconify/react/dist/iconify.js';
-import { clearState, signup } from '../../redux/auth/features';
+import { clearSignupState, signup } from '../../redux/auth/features';
 
 const validationSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -28,8 +29,11 @@ const validationSchema = Yup.object().shape({
 
 const Signup = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const { success, loading } = useAppSelector((state) => state.signup);
+  const { success, loading } = useAppSelector(
+    (state: RootState) => state.signup
+  );
 
   useEffect(() => {
     let toastId = null;
@@ -37,12 +41,19 @@ const Signup = () => {
       if (!toastId) {
         toastId = toast.success("You've successfully registered");
       }
+      navigate('/auth/signin');
     }
-  }, [success]);
+
+    return () => {
+      if (toastId) {
+        toast.dismiss(toastId);
+      }
+    };
+  }, [navigate, success]);
 
   useEffect(() => {
     return () => {
-      dispatch(clearState());
+      dispatch(clearSignupState());
     };
   }, [dispatch]);
 
@@ -65,7 +76,6 @@ const Signup = () => {
   const onSubmit: SubmitHandler<SignupValues> = (data: SignupValues, e) => {
     e?.preventDefault();
     dispatch(signup(data));
-    // console.log(data);
     reset();
   };
   return (

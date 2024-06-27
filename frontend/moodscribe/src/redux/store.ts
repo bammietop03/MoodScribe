@@ -17,8 +17,14 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
-import quoteReducer from '../redux/quotes/features';
-import { registrationReducer } from './auth/features';
+import {
+  deleteQuoteReducer,
+  quoteReducer,
+  quotesReducer,
+} from '../redux/quotes/features';
+import { signinReducer, signupReducer } from './auth/features';
+import tokenExpirationMiddleware from '../utils/tokenExpirationMiddleware';
+import { journalsReducer, addJournalReducer } from './journals/features';
 
 const persistConfig = {
   key: 'root',
@@ -27,9 +33,16 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  signup: registrationReducer,
-  quotes: quoteReducer,
+  signup: signupReducer,
+  signin: signinReducer,
+  quotes: quotesReducer,
+  quote: quoteReducer,
+  deleteQuote: deleteQuoteReducer,
+  journal: addJournalReducer,
+  journals: journalsReducer,
 });
+
+// storage.removeItem('persist:root');
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -40,10 +53,8 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(tokenExpirationMiddleware),
 });
-
-// storage.removeItem('persist:root');
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
