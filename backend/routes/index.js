@@ -25,7 +25,7 @@ router.get('/quotes', authenticateToken, QuoteController.getQuotes);
 // Delete Quotes By Id
 router.delete('/quote/:id', authenticateToken, QuoteController.deleteQuoteById);
 
-// Create a New Journal 
+// Create a New Journal
 router.post('/journal', authenticateToken, JournalController.createJournal);
 
 // Get all Journals
@@ -35,14 +35,20 @@ router.get('/journals', authenticateToken, JournalController.getAllJournal);
 router.get('/journal/:id', authenticateToken, JournalController.getJournalById);
 
 // Update a Journal
-router.put('/journal/:id', authenticateToken, JournalController.updateJournalById);
+router.put(
+  '/journal/:id',
+  authenticateToken,
+  JournalController.updateJournalById
+);
 
 // Delete a Journal
-router.delete('/journal/:id', authenticateToken, JournalController.deleteJournalById);
+router.delete(
+  '/journal/:id',
+  authenticateToken,
+  JournalController.deleteJournalById
+);
 
 // Route to fetch mood data
 router.get('/moods', authenticateToken, JournalController.getMoodData);
-
-
 
 export default router;
