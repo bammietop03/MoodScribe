@@ -8,10 +8,13 @@ const tokenExpirationMiddleware: Middleware = (store) => {
     if (!isDispatching) {
       const token = localStorage.getItem('token');
 
+
       if (token && isTokenExpired(token)) {
         isDispatching = true;
         store.dispatch(signout());
         isDispatching = false;
+
+        // window.location.href = '/';
         return;
       }
     }
