@@ -72,7 +72,6 @@ const NewEntry = () => {
   const content = watch('content');
   const onSubmit: SubmitHandler<JournalItem> = (data: JournalItem, e) => {
     e?.preventDefault();
-    console.log('Submited data', data);
     dispatch(addJournal(data));
     setSelectedMood(null);
     reset();

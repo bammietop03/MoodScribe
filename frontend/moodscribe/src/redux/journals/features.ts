@@ -143,7 +143,6 @@ export const getJournals = (): AppThunk => async (dispatch) => {
   try {
     const response = await base.get('/journals', authHeader());
     dispatch(JournalsSuccess(response.data));
-    console.log('Data', response.data);
   } catch (error) {
     dispatch(JournalsFailure(handleErrors(error)));
   }
