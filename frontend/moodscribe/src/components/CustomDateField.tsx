@@ -7,10 +7,7 @@ import clsx from 'clsx';
 
 import { ErrorMessage } from './ErrorMessage';
 
-type ReactDatePickPropsWithoutOnChange = Omit<
-  DatePickerProps,
-  'onChange' | 'selected'
->;
+type ReactDatePickPropsWithoutOnChange = Omit<DatePickerProps, 'onChange'>;
 
 type InputDateFieldProps = {
   name: string;
@@ -19,7 +16,7 @@ type InputDateFieldProps = {
   placeholder?: string;
   errorMessage?: string;
   hasError: FieldError | undefined;
-  value?: string;
+  value?: Date;
   isRequired?: boolean;
 } & ReactDatePickPropsWithoutOnChange &
   UseControllerProps;
@@ -60,7 +57,9 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
               selected={field.value}
               dateFormat={dateFormat}
               name={name}
-              onChange={(date: Date | null) => field.onChange(date)}
+              onChange={(date: [Date | null, Date | null]) =>
+                field.onChange(date)
+              }
               showMonthDropdown
               autoComplete='off'
               showYearDropdown
