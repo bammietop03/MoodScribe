@@ -10,7 +10,6 @@ const tokenExpirationMiddleware: Middleware = (store) => {
 
       if (token && isTokenExpired(token)) {
         isDispatching = true;
-        console.log('Token expired, dispatching signout');
         store.dispatch(signout());
         isDispatching = false;
         return;

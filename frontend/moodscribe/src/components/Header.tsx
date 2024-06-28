@@ -24,7 +24,7 @@ export const Header: FC = () => {
         { name: 'Journal', href: '/dashboard' },
         { name: 'Logout', href: '' },
       ];
-  console.log('Token', token);
+
   return (
     <header className=' absolute right-0 left-0 z-50 bg-white pl-4 pr-6'>
       <div className='flex items-center justify-between h-16 py-3'>
