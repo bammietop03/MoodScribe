@@ -17,13 +17,32 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
+import {
+  deleteQuoteReducer,
+  quoteReducer,
+  quotesReducer,
+} from '../redux/quotes/features';
+import { signinReducer, signupReducer } from './auth/features';
+import tokenExpirationMiddleware from '../utils/tokenExpirationMiddleware';
+import { journalsReducer, addJournalReducer } from './journals/features';
+
 const persistConfig = {
   key: 'root',
   version: 1,
   storage,
 };
 
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  signup: signupReducer,
+  signin: signinReducer,
+  quotes: quotesReducer,
+  quote: quoteReducer,
+  deleteQuote: deleteQuoteReducer,
+  journal: addJournalReducer,
+  journals: journalsReducer,
+});
+
+// storage.removeItem('persist:root');
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
@@ -34,7 +53,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(tokenExpirationMiddleware),
 });
 
 export type AppDispatch = typeof store.dispatch;

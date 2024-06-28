@@ -1,16 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo-transparent.png';
 import { Link } from 'react-router-dom';
 import { SigninValues } from '../../utils/types';
 import InputField from '../../components/CustomInputField';
+import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
+import { clearSigninState, signin } from '../../redux/auth/features';
+import { toast } from 'sonner';
 
 const validationSchema = Yup.object().shape({
-  fullName: Yup.string()
-    .required('Enter your name')
-    .min(3, 'Should contain minimum of 3 characters'),
+  email: Yup.string()
+    .email('Wrong email format')
+    .required('Enter your email address'),
   password: Yup.string()
     .required('Enter your password')
     .matches(
@@ -20,7 +24,35 @@ const validationSchema = Yup.object().shape({
 });
 
 const Signin = () => {
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
+  const { success, token } = useAppSelector((state: RootState) => state.signin);
+
+  useEffect(() => {
+    let toastId = null;
+    if (success) {
+      if (!toastId) {
+        toastId = toast.success('Login successfull');
+      }
+    }
+
+    setTimeout(() => {
+      if (token) navigate('/dashboard');
+    }, 1000);
+
+    return () => {
+      if (toastId) {
+        toast.dismiss(toastId);
+      }
+    };
+  }, [navigate, success, token]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearSigninState());
+    };
+  }, [dispatch]);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
@@ -39,7 +71,7 @@ const Signin = () => {
 
   const onSubmit: SubmitHandler<SigninValues> = (data: SigninValues, e) => {
     e?.preventDefault();
-    // dispatch(signinUser(data));
+    dispatch(signin(data));
     reset();
   };
   return (
@@ -54,30 +86,35 @@ const Signin = () => {
         </h1>
         <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
           <InputField
-            label='FULL NAME'
-            type={'text'}
+            registration={{ ...register('email') }}
+            type='text'
             control={control}
-            registration={{ ...register('fullName') }}
-            placeholder='Enter your full name'
-            errorMessage={errors.fullName?.message}
+            valid={
+              getValues('email') && !errors.email?.message ? 'success' : ''
+            }
+            errorMessage={errors.email?.message}
+            label='EMAIL ADDRESS'
+            labelClass='text-[#e7c1a3] mt-9'
+            placeholder='Enter your email'
             isRequired
-            className='bg-transparent border-0 border-b rounded-none mt-2'
+            className='bg-transparent border-b border-gray-400 mt-2'
           />
           <InputField
             registration={{ ...register('password') }}
             type={showPassword ? 'text' : 'password'}
             control={control}
             label='PASSWORD'
+            labelClass='text-[#e7c1a3] mt-9'
             placeholder='Enter your password'
             valid={getValues('password') && !errors.password ? 'success' : ''}
             errorMessage={errors.password?.message}
             isRequired
             handleShowPassword={handleShowPassword}
-            className='bg-transparent border-0 border-b rounded-none mt-2'
+            className='bg-transparent border-b  border-gray-400 mt-2'
           />
           <button
             type='submit'
-            className='py-3 mb-5 mt-12 text-[#64eafa] font-semibold bg-slate-300 bg-opacity-50 hover:bg-cyan-500 hover:text-white w-full border rounded-3xl'
+            className='py-3 mb-5 mt-12 text-teal-100 font-semibold bg-slate-300 bg-opacity-50 hover:bg-cyan-500 hover:text-white w-full border rounded-3xl'
           >
             LOGIN
           </button>
@@ -86,7 +123,7 @@ const Signin = () => {
           Don't have an account? {'  '}
           <Link
             to='/auth/signup'
-            className='text-[#64eafa] hover:text-cyan-400 text-lg italic'
+            className='text-teal-100 hover:text-cyan-400 text-lg italic'
           >
             Signup
           </Link>

@@ -1,11 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { RootState, useAppDispatch, useAppSelector } from '../../redux/store';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 import logo from '../../assets/logo-transparent.png';
 import { Link } from 'react-router-dom';
 import { SignupValues } from '../../utils/types';
 import InputField from '../../components/CustomInputField';
+import { Icon } from '@iconify/react/dist/iconify.js';
+import { clearSignupState, signup } from '../../redux/auth/features';
 
 const validationSchema = Yup.object().shape({
   fullName: Yup.string()
@@ -23,11 +28,39 @@ const validationSchema = Yup.object().shape({
 });
 
 const Signup = () => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
+  const { success, loading } = useAppSelector(
+    (state: RootState) => state.signup
+  );
+
+  useEffect(() => {
+    let toastId = null;
+    if (success) {
+      if (!toastId) {
+        toastId = toast.success("You've successfully registered");
+      }
+      navigate('/auth/signin');
+    }
+
+    return () => {
+      if (toastId) {
+        toast.dismiss(toastId);
+      }
+    };
+  }, [navigate, success]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearSignupState());
+    };
+  }, [dispatch]);
 
   const handleShowPassword = () => {
     setShowPassword(!showPassword);
   };
+
   const {
     control,
     register,
@@ -42,7 +75,7 @@ const Signup = () => {
 
   const onSubmit: SubmitHandler<SignupValues> = (data: SignupValues, e) => {
     e?.preventDefault();
-    // dispatch(signupUser(data));
+    dispatch(signup(data));
     reset();
   };
   return (
@@ -56,13 +89,14 @@ const Signup = () => {
         <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
           <InputField
             label='FULL NAME'
+            labelClass='text-[#e7c1a3] mt-9'
             type={'text'}
             control={control}
             registration={{ ...register('fullName') }}
             placeholder='Enter your full name'
             errorMessage={errors.fullName?.message}
             isRequired
-            className='bg-transparent border-0 border-b rounded-none mt-2'
+            className='bg-transparent border-b border-gray-400 mt-2'
           />
           <InputField
             registration={{ ...register('email') }}
@@ -73,26 +107,31 @@ const Signup = () => {
             }
             errorMessage={errors.email?.message}
             label='EMAIL ADDRESS'
+            labelClass='text-[#e7c1a3] mt-9'
             placeholder='Enter your email'
             isRequired
-            className='bg-transparent border-0 border-b rounded-none mt-2'
+            className='bg-transparent border-b border-gray-400 mt-2'
           />
           <InputField
             registration={{ ...register('password') }}
             type={showPassword ? 'text' : 'password'}
             control={control}
             label='PASSWORD'
+            labelClass='text-[#e7c1a3] mt-9'
             placeholder='Enter your password'
             valid={getValues('password') && !errors.password ? 'success' : ''}
             errorMessage={errors.password?.message}
             isRequired
             handleShowPassword={handleShowPassword}
-            className='bg-transparent border-0 border-b rounded-none mt-2'
+            className='bg-transparent border-b border-gray-400 mt-2'
           />
           <button
             type='submit'
-            className='py-3 mb-5 mt-12 text-[#64eafa] font-semibold bg-slate-300 bg-opacity-50 hover:bg-cyan-500 hover:text-white w-full border rounded-3xl'
+            className='py-3 mb-5 mt-12 text-teal-100 font-semibold bg-slate-300 bg-opacity-50 hover:bg-cyan-500 hover:text-white w-full border rounded-3xl'
           >
+            {loading && (
+              <Icon icon='eos-icons:loading' className='inline-block ' />
+            )}
             CREATE ACCOUNT
           </button>
         </form>
@@ -100,7 +139,7 @@ const Signup = () => {
           Already have an account? {'  '}
           <Link
             to='/auth/signin'
-            className='text-[#64eafa] hover:text-cyan-400 text-lg italic'
+            className='text-teal-100 hover:text-cyan-400 text-lg italic'
           >
             Log in
           </Link>
