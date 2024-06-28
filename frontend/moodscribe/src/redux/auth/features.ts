@@ -111,14 +111,15 @@ const signinSlice = createSlice({
 
       const decoded: { exp: number } = jwtDecode(action.payload);
       state.expirationTime = decoded.exp;
+      localStorage.setItem('token', state.token);
     },
 
     signinFailure(state, action) {
       state.loading = false;
       state.success = false;
       state.error = action.payload;
-      state.token = null; // Clear token on failure
-      state.expirationTime = null; // Clear expiration time on failure
+      state.token = null; 
+      state.expirationTime = null;
     },
 
     clearSigninState(state) {
@@ -129,7 +130,7 @@ const signinSlice = createSlice({
     signout(state) {
       state.token = null;
       state.expirationTime = null;
-      localStorage.removeItem('token');
+      localStorage.setItem('token', '');
     },
   },
 });
