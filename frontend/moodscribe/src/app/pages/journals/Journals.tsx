@@ -1,12 +1,23 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import History from './components/History';
 import NewEntry from './components/NewEntry';
 import clsx from 'clsx';
+import { getUser } from '../../../redux/auth/features';
+import { useAppDispatch, useAppSelector } from '../../../redux/store';
 
 const Journals = () => {
+  const dispatch = useAppDispatch();
   const [newEntry, setNewEntry] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [history, setHistory] = useState(false);
+  const { user } = useAppSelector((state) => state.user);
+  const firstName = user?.fullName.split(' ')[0];
+  const firstNameToCaps =
+    firstName && firstName[0].toUpperCase() + firstName.slice(1);
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch]);
 
   const handleNewEntry = () => {
     setNewEntry(true);
@@ -21,7 +32,7 @@ const Journals = () => {
   return (
     <section className='container mx-auto max-w-2xl px-4 py-12 h-full text-white'>
       <h1 className='text-2xl text-center'>
-        Hello John. Welcome to your journal
+        Hello {firstNameToCaps}. Welcome to your journal
       </h1>
       <div className='flex space-x-6 mt-16'>
         <span

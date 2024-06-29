@@ -7,12 +7,18 @@ import {
   fetchQuotes,
   deleteQuote,
 } from '../../../redux/quotes/features';
+import { getUser } from '../../../redux/auth/features';
 
 const Home: FC = () => {
   const dispatch = useAppDispatch();
   const { quotes } = useAppSelector((state) => state.quotes);
   const { status } = useAppSelector((state) => state.quote);
+  const { user } = useAppSelector((state) => state.user);
   const [newQuote, setNewQuote] = useState('');
+  const userName = user?.fullName
+    .split(' ')
+    .map((name) => `${name[0].toUpperCase()}${name.slice(1)}`)
+    .join(' ');
 
   const getRandomColor = () => {
     const colors = ['#FFCDD2', '#C8E6C9', '#BBDEFB', '#FFECB3', '#f4438a'];
@@ -21,6 +27,7 @@ const Home: FC = () => {
 
   useEffect(() => {
     dispatch(fetchQuotes());
+    dispatch(getUser());
     status === 'succeeded' && dispatch(fetchQuotes());
   }, [dispatch, status]);
 
@@ -94,8 +101,8 @@ const Home: FC = () => {
                 )}
                 <p className='px-2 py-3'>
                   {idx === 0 ? (
-                    <span className='block font-semibold text-lg text-gray-500'>
-                      Hi John Doe{' '}
+                    <span className='block font-semibold text-lg text-gray-200'>
+                      Hi {userName}
                     </span>
                   ) : null}
                   {quote.quote}
@@ -124,7 +131,6 @@ const Home: FC = () => {
               value={newQuote}
               onChange={(e) => setNewQuote(e.target.value)}
               className='outline-none w-full py-2 px-3 mt-3 mb-7 text-slate-800 rounded-sm focus:border-cyan-600'
-              // placeholder='Enter a new quote'
             />
             <button
               type='submit'

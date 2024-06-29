@@ -22,9 +22,10 @@ import {
   quoteReducer,
   quotesReducer,
 } from '../redux/quotes/features';
-import { signinReducer, signupReducer } from './auth/features';
+import { signinReducer, signupReducer, userReducer } from './auth/features';
 import tokenExpirationMiddleware from '../utils/tokenExpirationMiddleware';
 import { journalsReducer, addJournalReducer } from './journals/features';
+import { articlessReducer } from './articles/features';
 
 const persistConfig = {
   key: 'root',
@@ -35,11 +36,13 @@ const persistConfig = {
 const rootReducer = combineReducers({
   signup: signupReducer,
   signin: signinReducer,
+  user: userReducer,
   quotes: quotesReducer,
   quote: quoteReducer,
   deleteQuote: deleteQuoteReducer,
   journal: addJournalReducer,
   journals: journalsReducer,
+  articles: articlessReducer,
 });
 
 // storage.removeItem('persist:root');

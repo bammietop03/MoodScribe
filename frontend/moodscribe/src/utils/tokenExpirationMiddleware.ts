@@ -4,17 +4,17 @@ import { isTokenExpired } from './helpers';
 
 const tokenExpirationMiddleware: Middleware = (store) => {
   let isDispatching = false;
+
   return (next) => (action) => {
     if (!isDispatching) {
       const token = localStorage.getItem('token');
-
 
       if (token && isTokenExpired(token)) {
         isDispatching = true;
         store.dispatch(signout());
         isDispatching = false;
 
-        // window.location.href = '/';
+        // window.location.href = '/auth/signin';
         return;
       }
     }

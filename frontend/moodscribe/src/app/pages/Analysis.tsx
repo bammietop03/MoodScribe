@@ -42,7 +42,7 @@ const Analysis = () => {
   };
 
   return (
-    <div className='container mx-auto max-w-4xl my-14'>
+    <div className='container mx-auto max-w-4xl my-14 p-4'>
       <h2 className='text-white text-2xl text-center mb-11'>Mood Chart</h2>
       <Line data={data} options={options} />
     </div>
