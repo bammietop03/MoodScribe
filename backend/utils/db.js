@@ -30,6 +30,16 @@ class DBClient {
     isAlive() {
         return Boolean(this.db);
     }
+
+    async waitForConnection() {
+        await this.client.connect()
+            .then(() => {
+                console.log('Database Connected successfully for test')
+            })
+            .catch((error) => {
+                console.error(error);
+            })
+    }
 }
 
 const dbClient = new DBClient();
