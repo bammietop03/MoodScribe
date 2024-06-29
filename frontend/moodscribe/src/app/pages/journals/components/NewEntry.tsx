@@ -147,7 +147,6 @@ const NewEntry = () => {
           type={'text'}
           control={control}
           registration={{ ...register('title') }}
-          placeholder='Enter your full name'
           errorMessage={errors.title?.message}
           isRequired
           className='bg-slate-700 bg-opacity-40  py-3 px-2 mt-1 text-white'
