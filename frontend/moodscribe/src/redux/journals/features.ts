@@ -101,16 +101,16 @@ const journalsSlice = createSlice({
   name: 'journals',
   initialState: JournalsInitialState,
   reducers: {
-    JournalsStart(state) {
+    journalsStart(state) {
       state.loading = true;
       return state;
     },
-    JournalsSuccess(state, action: PayloadAction<JournalValues>) {
+    journalsSuccess(state, action: PayloadAction<JournalValues>) {
       state.loading = false;
       state.success = true;
       state.journals = action.payload;
     },
-    JournalsFailure(state, action) {
+    journalsFailure(state, action) {
       state.error = action.payload;
       return state;
     },
@@ -131,20 +131,20 @@ const journalsSlice = createSlice({
 });
 
 export const {
-  JournalsStart,
-  JournalsSuccess,
-  JournalsFailure,
+  journalsStart,
+  journalsSuccess,
+  journalsFailure,
   clearJournalsState,
 } = journalsSlice.actions;
 export const journalsReducer = journalsSlice.reducer;
 
 export const getJournals = (): AppThunk => async (dispatch) => {
-  dispatch(JournalsStart());
+  dispatch(journalsStart());
   try {
     const response = await base.get('/journals', authHeader());
-    dispatch(JournalsSuccess(response.data));
+    dispatch(journalsSuccess(response.data));
   } catch (error) {
-    dispatch(JournalsFailure(handleErrors(error)));
+    dispatch(journalsFailure(handleErrors(error)));
   }
 };
 

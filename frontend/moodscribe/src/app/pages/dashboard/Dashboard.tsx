@@ -4,7 +4,7 @@ import Home from '../dashoardHome/Home';
 import SideNavbar from './components/SideNavbar';
 import Journals from '../journals/Journals';
 import Analysis from '../Analysis';
-import Resources from '../Resources';
+import Resources from '../resources/Resources';
 import { Icon } from '@iconify/react';
 
 const Dashboard = () => {

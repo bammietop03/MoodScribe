@@ -34,22 +34,15 @@ const Signup = () => {
   const { success, loading } = useAppSelector(
     (state: RootState) => state.signup
   );
+  const toastId = 'Hello';
 
   useEffect(() => {
-    let toastId = null;
     if (success) {
-      if (!toastId) {
-        toastId = toast.success("You've successfully registered");
-      }
-      navigate('/auth/signin');
+      toast.success("You've successfully registered", { id: toastId });
     }
 
-    return () => {
-      if (toastId) {
-        toast.dismiss(toastId);
-      }
-    };
-  }, [navigate, success]);
+    navigate('/auth/signin');
+  }, [navigate, success, toastId]);
 
   useEffect(() => {
     return () => {

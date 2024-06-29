@@ -28,25 +28,17 @@ const Signin = () => {
   const dispatch = useAppDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const { success, token } = useAppSelector((state: RootState) => state.signin);
+  const toastId = 'Sonner';
 
   useEffect(() => {
-    let toastId = null;
     if (success) {
-      if (!toastId) {
-        toastId = toast.success('Login successfull');
-      }
+      toast.success('Login successfull', { id: toastId });
     }
 
     setTimeout(() => {
       if (token) navigate('/dashboard');
     }, 1000);
-
-    return () => {
-      if (toastId) {
-        toast.dismiss(toastId);
-      }
-    };
-  }, [navigate, success, token]);
+  }, [navigate, success, toastId, token]);
 
   useEffect(() => {
     return () => {

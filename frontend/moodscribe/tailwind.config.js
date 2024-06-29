@@ -18,7 +18,7 @@ export default {
       },
       gridTemplateColumns: {
         // "auto-fill-100": "repeat(auto-fill, minmax(100px, 1fr))",
-        'auto-fit-100': 'repeat(auto-fit, minmax(1fr, 1fr))',
+        'auto-fit-100': 'repeat(auto-fit, minmax(300px, 1fr))',
       },
     },
   },

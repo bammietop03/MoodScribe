@@ -2,9 +2,10 @@ import axios from 'axios';
 import { AppThunk } from '../store';
 import { baseUrlApi } from '../../axiosHelper';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { SigninValues, SignupValues } from '../../utils/types';
+import { SigninValues, SignupValues, UserValues } from '../../utils/types';
 import { handleErrors } from '..';
 import { jwtDecode } from 'jwt-decode';
+import { authHeader } from '../../axiosHelper/services/auth-header';
 
 const base = axios.create({
   baseURL: baseUrlApi,
@@ -118,7 +119,7 @@ const signinSlice = createSlice({
       state.loading = false;
       state.success = false;
       state.error = action.payload;
-      state.token = null; 
+      state.token = null;
       state.expirationTime = null;
     },
 
@@ -163,3 +164,44 @@ export const signin =
       dispatch(signinFailure(handleErrors(error)));
     }
   };
+
+// Get User
+export interface User {
+  user: UserValues | null;
+  error: string;
+}
+
+const initialUserState: User = {
+  user: null,
+  error: '',
+};
+
+// Signup slice
+const userSlice = createSlice({
+  name: 'user',
+  initialState: initialUserState,
+  reducers: {
+    userStart(state) {
+      state.error = '';
+    },
+    userSuccess(state, action: PayloadAction<UserValues>) {
+      state.user = action.payload;
+    },
+    userFailure(state, action) {
+      state.error = action.payload;
+    },
+  },
+});
+
+export const { userStart, userSuccess, userFailure } = userSlice.actions;
+export const userReducer = userSlice.reducer;
+
+export const getUser = (): AppThunk => async (dispatch) => {
+  dispatch(userStart());
+  try {
+    const response = await base.get('/user', authHeader());
+    dispatch(userSuccess(response.data));
+  } catch (error) {
+    dispatch(userFailure(handleErrors(error)));
+  }
+};

@@ -41,7 +41,7 @@ class UserController {
     }
 
     res.status(200).json({
-      fullname: user.fullname,
+      fullName: user.fullName,
       email: user.email,
     });
   }

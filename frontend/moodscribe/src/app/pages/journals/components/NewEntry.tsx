@@ -122,7 +122,7 @@ const NewEntry = () => {
               type='button'
               key={idx}
               className={clsx(
-                'flex flex-col items-center space-y-2 my-3 mr-4 transition-all duration-700 ease-in-out',
+                'flex flex-col items-center space-y-2 my-3 mr-4 hover:scale-125 transition-all duration-700 ease-in-out',
                 selectedMood === emoji ? 'shadow-xl shadow-[#facc4c]' : ''
               )}
               onClick={() => handleMoodClick(emoji)}

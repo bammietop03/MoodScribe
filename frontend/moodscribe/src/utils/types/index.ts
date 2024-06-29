@@ -47,3 +47,14 @@ export interface JournalValues {
 export interface JwtPayload {
   exp: number;
 }
+
+export interface ArticleValues {
+  title: string;
+  url: string;
+  urlToImage: string | null;
+}
+
+export interface UserValues {
+  fullName: string;
+  email: string;
+}
