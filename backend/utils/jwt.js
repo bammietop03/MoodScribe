@@ -8,7 +8,7 @@ const secret = process.env.JWT_SECRET;
 
 // Generate a new token
 export function generateToken(payload) {
-  return jwt.sign(payload, secret, { algorithm: 'HS256', expiresIn: '1m' });
+  return jwt.sign(payload, secret, { algorithm: 'HS256', expiresIn: '3h' });
 }
 
 // Verify token
