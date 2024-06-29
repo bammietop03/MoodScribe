@@ -79,6 +79,7 @@ export const signup =
 
 export interface Signin {
   token: string | null;
+  isAuthenticated: boolean;
   success: boolean;
   loading: boolean;
   error: string;
@@ -87,6 +88,7 @@ export interface Signin {
 
 const initialSigninState: Signin = {
   token: null,
+  isAuthenticated: false,
   success: false,
   loading: false,
   error: '',
@@ -109,10 +111,11 @@ const signinSlice = createSlice({
       state.loading = false;
       state.success = true;
       state.token = action.payload;
+      state.isAuthenticated = true;
 
       const decoded: { exp: number } = jwtDecode(action.payload);
       state.expirationTime = decoded.exp;
-      localStorage.setItem('token', state.token);
+      localStorage.removeItem('token');
     },
 
     signinFailure(state, action) {
@@ -130,6 +133,7 @@ const signinSlice = createSlice({
     },
     signout(state) {
       state.token = null;
+      state.isAuthenticated = false;
       state.expirationTime = null;
       localStorage.setItem('token', '');
     },

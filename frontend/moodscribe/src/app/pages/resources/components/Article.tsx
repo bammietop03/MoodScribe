@@ -9,13 +9,13 @@ interface Props {
 
 const Article: FC<Props> = ({ article }) => {
   return (
-    <div className='hover:shadow-xl hover:shadow-gray-700 p-1'>
+    <div className='hover:shadow-xl hover:shadow-gray-700 backdrop-blur-xl backdrop-brightness-125 p-1'>
       <img
         src={article.urlToImage || Default}
         alt='Mental health'
         className='h-52 w-full object-cover'
       />
-      <p className=''>{article.title}</p>
+      <p className='line-clamp-2 hover:line-clamp-none pt-1'>{article.title}</p>
       <p className='py-2'>
         Read more{' '}
         <Link

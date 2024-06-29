@@ -11,8 +11,6 @@ const Resources: FC = () => {
   const dispatch = useAppDispatch();
   const { articles } = useAppSelector((state: RootState) => state.articles);
 
-  console.log('Articles', articles);
-
   useEffect(() => {
     dispatch(getArticles());
   }, [dispatch]);

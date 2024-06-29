@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -27,7 +27,7 @@ const validationSchema = Yup.object().shape({
     ),
 });
 
-const Signup = () => {
+const Signup: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -39,9 +39,8 @@ const Signup = () => {
   useEffect(() => {
     if (success) {
       toast.success("You've successfully registered", { id: toastId });
+      navigate('/auth/signin');
     }
-
-    navigate('/auth/signin');
   }, [navigate, success, toastId]);
 
   useEffect(() => {

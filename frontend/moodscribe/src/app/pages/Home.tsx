@@ -4,7 +4,7 @@ import { Header } from '../../components/Header';
 
 const Home: FC = () => {
   return (
-    <div className='fixed h-full'>
+    <div className='fixed h-full w-full'>
       <Header />
       <video autoPlay loop muted className='w-full h-full object-cover'>
         <source src={sea} type='video/mp4' />
