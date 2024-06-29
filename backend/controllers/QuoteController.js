@@ -65,13 +65,11 @@ class QuoteController {
         .collection('quotes')
         .deleteOne({ _id: new ObjectId(quoteId), userId: user._id });
       if (result.deletedCount === 0) {
-        return res
-          .status(404)
+        return res.status(404)
           .json({ error: 'Quote not found or not authorized to delete' });
       }
 
-      res
-        .status(200)
+      res.status(200)
         .json({ message: `Quote ${quoteId} deleted successfully` });
     } catch (error) {
       console.error('Error deleting quote:', error);

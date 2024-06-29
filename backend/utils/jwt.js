@@ -12,14 +12,6 @@ export function generateToken(payload) {
 }
 
 // Verify token
-// export function verifyToken(token) {
-//   try {
-//     const data = jwt.verify(token, secret, { algorithm: 'HS256' });
-//     return data;
-//   } catch (e) {
-//     return null;
-//   }
-// }
 export function verifyToken(token) {
     try {
       const data = jwt.verify(token, secret, { algorithm: 'HS256' });
@@ -38,15 +30,12 @@ export async function authenticateToken(req, res, next) {
 
     if (!token) return res.status(401).json({ error: 'Missing Token' });
 
-//   const data = verifyToken(token);
-//   if (!data) return res.status(401).json({ error: 'Invalid Token' });
-
     const { valid, expired, data } = verifyToken(token);
     if (!valid) {
-    if (expired) {
-        return res.status(401).json({ error: 'Login Session Timeout' });
-    }
-    return res.status(401).json({ error: 'Invalid Token' });
+        if (expired) {
+            return res.status(401).json({ error: 'Your session timed out. Please log in to continue.' });
+        }
+        return res.status(401).json({ error: 'Invalid Token' });
     }
 
     const user = await dbClient.db

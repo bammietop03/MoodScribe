@@ -27,7 +27,7 @@ class ArticleController {
         const  {search } = req.body;
         if (!search) return res.status(401).json({ error: 'Missing Search' });
 
-        const words = search.split(' '); // Split the string by spaces
+        const words = search.split(' ');
         const joinedString = words.join('+');
 
         const apiKey = process.env.NEWS_API_KEY;
@@ -44,8 +44,6 @@ class ArticleController {
         } catch (error) {
             res.status(500).send('Error fetching articles');
         }
-
-
 
     }
 }

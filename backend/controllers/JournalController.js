@@ -25,8 +25,7 @@ class JournalController {
         content,
         date,
       });
-      res
-        .status(201)
+      res.status(201)
         .json({ message: 'Journal Added Successfully', id: result.insertedId });
     } catch (error) {
       console.error('Error Creating journal entry:', error);
@@ -112,8 +111,7 @@ class JournalController {
         return res.status(404).json({ error: 'Journal entry not found' });
       }
 
-      res
-        .status(200)
+      res.status(200)
         .json({ message: `Journal entry ${journalId} updated successfully` });
     } catch (error) {
       console.error('Error updating journal entry:', error);
