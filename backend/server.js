@@ -12,43 +12,54 @@ configDotenv();
 const app = express();
 const port = process.env.PORT;
 
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://moodscribe.netlify.app',
+];
+
 const corsOptions = {
-  origin: 'http://localhost:5173',
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   optionsSuccessStatus: 200,
 };
 
 const swaggerOptions = {
-    swaggerDefinition: {
-        openapi: '3.0.0',
-        info: {
-            title: 'MoodScribe API',
-            version: '1.0.0',
-            description: 'API documentation for MoodScribe'
-        },
-        servers: [
-            {
-                url: 'https://moodscribe.onrender.com',
-                description: 'Development server'
-            }
-        ],
-        components: {
-            securitySchemes: {
-                bearerAuth: {
-                    type: 'http',
-                    scheme: 'bearer',
-                    bearerFormat: 'JWT'
-                }
-            }
-        },
-        security: [
-            {
-                bearerAuth: []
-            }
-        ]
+  swaggerDefinition: {
+    openapi: '3.0.0',
+    info: {
+      title: 'MoodScribe API',
+      version: '1.0.0',
+      description: 'API documentation for MoodScribe',
     },
-    apis: ['./routes/*.js']
+    servers: [
+      {
+        url: 'https://moodscribe.onrender.com',
+        description: 'Development server',
+      },
+    ],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: 'http',
+          scheme: 'bearer',
+          bearerFormat: 'JWT',
+        },
+      },
+    },
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
+  },
+  apis: ['./routes/*.js'],
 };
-  
+
 const swaggerDocs = swaggerJsdoc(swaggerOptions);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
