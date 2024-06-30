@@ -2,7 +2,6 @@ import { Controller, FieldError, UseControllerProps } from 'react-hook-form';
 import DatePicker, { DatePickerProps } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import React from 'react';
-// import dayjs from 'dayjs';
 import clsx from 'clsx';
 
 import { ErrorMessage } from './ErrorMessage';
@@ -51,12 +50,10 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
                 hasError && 'border-red-500',
                 className
               )}
-              // formatWeekDay={(day) => dayjs(day).format('ddd')}
               placeholderText={placeholder}
               closeOnScroll={true}
               selected={field.value}
               dateFormat={dateFormat}
-              selectsRange={true}
               name={name}
               onChange={(date: [Date | null, Date | null]) =>
                 field.onChange(date)
@@ -67,6 +64,8 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
               dropdownMode='select'
               showTimeSelect
               timeIntervals={1}
+              selectsRange={true}
+              selectsMultiple={undefined}
               ref={(elem) => {
                 elem &&
                   field.ref(
