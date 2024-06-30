@@ -1,9 +1,11 @@
 import { Middleware } from '@reduxjs/toolkit';
 import { signout } from '../redux/auth/features';
 import { isTokenExpired } from './helpers';
+import { toast } from 'sonner';
 
 const tokenExpirationMiddleware: Middleware = (store) => {
   let isDispatching = false;
+  const toastId = 'ware';
 
   return (next) => (action) => {
     if (!isDispatching) {
@@ -13,6 +15,9 @@ const tokenExpirationMiddleware: Middleware = (store) => {
         isDispatching = true;
         store.dispatch(signout());
         isDispatching = false;
+        toast.error('Your session timed out. Please log in to continue.', {
+          id: toastId,
+        });
 
         // window.location.href = '/auth/signin';
         return;

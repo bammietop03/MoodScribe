@@ -20,8 +20,6 @@ export const formatDate = (dateString: string): string => {
     day: 'numeric',
     hour: 'numeric',
     minute: 'numeric',
-    hour12: true,
-    timeZone: 'UTC',
   };
 
   const date = new Date(dateString);

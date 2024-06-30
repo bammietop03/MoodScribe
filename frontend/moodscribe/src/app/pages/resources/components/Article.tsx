@@ -15,7 +15,9 @@ const Article: FC<Props> = ({ article }) => {
         alt='Mental health'
         className='h-52 w-full object-cover'
       />
-      <p className='line-clamp-2 hover:line-clamp-none pt-1'>{article.title}</p>
+      <p className='line-clamp-2 hover:line-clamp-none min-h-[3.6rem] pt-1'>
+        {article.title}
+      </p>
       <p className='py-2'>
         Read more{' '}
         <Link

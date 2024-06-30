@@ -28,12 +28,13 @@ const Analysis = () => {
         max: 8,
 
         ticks: {
-          color: '#C5C5C5', // Change color of y-axis numbers
+          color: '#C5C5C5',
+          padding: 10,
         },
       },
       x: {
         ticks: {
-          color: '#C5C5C5', // Change color of x-axis dates
+          color: '#C5C5C5',
         },
       },
     },
