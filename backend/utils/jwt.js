@@ -8,19 +8,16 @@ const secret = process.env.JWT_SECRET;
 
 // Generate a new token
 export function generateToken(payload) {
-  return jwt.sign(payload, secret, { algorithm: 'HS256', expiresIn: '5s' });
+  return jwt.sign(payload, secret, { algorithm: 'HS256', expiresIn: '3h' });
 }
 
 // Verify token
 export function verifyToken(token) {
   try {
     const data = jwt.verify(token, secret, { algorithm: 'HS256' });
-    return { valid: true, expired: false, data };
+    return data;
   } catch (e) {
-    if (e.name === 'TokenExpiredError') {
-      return { valid: false, expired: true, data: null };
-    }
-    return { valid: false, expired: false, data: null };
+    return null;
   }
 }
 
@@ -30,18 +27,11 @@ export async function authenticateToken(req, res, next) {
 
   if (!token) return res.status(401).json({ error: 'Missing Token' });
 
-  const { valid, expired, data } = verifyToken(token);
-  if (!valid) {
-    if (expired) {
-      return res
-        .status(401)
-        .json({ error: 'Your session timed out. Please log in to continue.' });
-    }
-    return res.status(401).json({ error: 'Invalid Token' });
-  }
+  const data = verifyToken(token);
+  if (!data) return res.status(401).json({ error: 'Invalid Token' });
 
   const user = await dbClient.db
-    .collection('users')
+    ?.collection('users')
     .findOne({ email: data.email });
   if (!user) return res.status(401).json({ error: 'Invalid Token' });
 

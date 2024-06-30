@@ -27,7 +27,7 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
   hasError,
   className,
   placeholder = 'Select date',
-  dateFormat = 'MMMM d, yyyy',
+  dateFormat = 'MMMM d, yyyy HH:mm:ss',
   isRequired,
   control,
   errorMessage,
@@ -64,6 +64,8 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
               autoComplete='off'
               showYearDropdown
               dropdownMode='select'
+              showTimeSelect
+              timeIntervals={1}
               ref={(elem) => {
                 elem &&
                   field.ref(
@@ -76,7 +78,9 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
         )}
       />
 
-      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      {errorMessage && (
+        <ErrorMessage className='ml-2'>{errorMessage}</ErrorMessage>
+      )}
     </>
   );
 };

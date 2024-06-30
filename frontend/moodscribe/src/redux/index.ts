@@ -17,15 +17,15 @@ export const handleErrors = (err: any) => {
     case 422:
       if (response.data.errors) {
         if (Array.isArray(response.data.errors)) {
-          response.data.errors.forEach((each: any) => {
-            toast.error(each.message, { id: toastId });
+          response.data.errors.forEach((each: any, idx: number) => {
+            toast.error(each.message, { id: idx });
           });
         } else if (typeof response.data.errors === 'object') {
           if (response.data.errors.length > 0) {
-            Object.keys(response.data.errors).forEach((field) => {
+            Object.keys(response.data.errors).forEach((field, idx) => {
               const errors = response.data.errors[field];
               errors.forEach((errorMessage: any) => {
-                toast.error(errorMessage, { id: toastId });
+                toast.error(errorMessage, { id: idx });
               });
             });
           } else {

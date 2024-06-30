@@ -87,7 +87,7 @@ const Home: FC = () => {
                 background: quote.color,
               }}
               onClick={() =>
-                quote._id && dispatch(deleteQuote(quote._id as number))
+                quote._id && dispatch(deleteQuote(quote._id as string))
               }
             >
               <div className='flex justify-between items-center relative group'>
