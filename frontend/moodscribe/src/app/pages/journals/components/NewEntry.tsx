@@ -1,4 +1,5 @@
-import { FC } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { FC, KeyboardEvent, MouseEvent } from 'react';
 import { useForm, SubmitHandler, Control } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -120,6 +121,15 @@ const NewEntry: FC = () => {
             errorMessage={errors.date?.message}
             isRequired
             excludeScrollbar={undefined}
+            onSelect={function (
+              _date: Date | null,
+              _event?:
+                | MouseEvent<HTMLElement>
+                | KeyboardEvent<HTMLElement>
+                | undefined
+            ): void {
+              throw new Error('Function not implemented.');
+            }}
           />
         </div>
 
