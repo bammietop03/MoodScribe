@@ -56,6 +56,7 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
               closeOnScroll={true}
               selected={field.value}
               dateFormat={dateFormat}
+              selectsRange={true}
               name={name}
               onChange={(date: [Date | null, Date | null]) =>
                 field.onChange(date)
