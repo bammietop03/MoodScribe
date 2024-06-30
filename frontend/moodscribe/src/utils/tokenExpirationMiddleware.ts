@@ -19,7 +19,9 @@ const tokenExpirationMiddleware: Middleware = (store) => {
           id: toastId,
         });
 
-        // window.location.href = '/auth/signin';
+        if (window.location.href !== '/auth/signin') {
+          window.location.href !== '/auth/signin';
+        }
         return;
       }
     }
