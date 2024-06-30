@@ -6,7 +6,10 @@ import clsx from 'clsx';
 
 import { ErrorMessage } from './ErrorMessage';
 
-type ReactDatePickPropsWithoutOnChange = Omit<DatePickerProps, 'onChange'>;
+type ReactDatePickPropsWithoutOnChange = Omit<
+  DatePickerProps,
+  'onChange' | 'selectsMultiple'
+>;
 
 type InputDateFieldProps = {
   name: string;
@@ -62,10 +65,9 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
               autoComplete='off'
               showYearDropdown
               dropdownMode='select'
+              selectsRange={true}
               showTimeSelect
               timeIntervals={1}
-              selectsRange={true}
-              selectsMultiple={undefined}
               ref={(elem) => {
                 elem &&
                   field.ref(
