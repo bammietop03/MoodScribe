@@ -3,6 +3,7 @@
   to = "/index.html"
   status = 200
 
-  [build]
-  command = "tsc && vite build"
+ [build]
+  command = "npm install && npm run build"
   publish = "dist"
+
