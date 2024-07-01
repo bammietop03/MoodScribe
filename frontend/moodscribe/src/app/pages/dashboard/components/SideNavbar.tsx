@@ -7,6 +7,7 @@ import { Link, useLocation } from 'react-router-dom';
 import Logo from '../../../../assets/dashboard/logo-transparent.png';
 import { useAppDispatch } from '../../../../redux/store';
 import { signout } from '../../../../redux/auth/features';
+import clsx from 'clsx';
 
 const routes: Route[] = [
   {
@@ -67,11 +68,12 @@ const SideNavbar: FC<Props> = ({ toggleNav }) => {
                         onClick={() => {
                           toggleNav();
                         }}
-                        className={`${
+                        className={clsx(
+                          'flex w-full gap-4 justify-between items-center px-2 h-12 rounded group my-3',
                           isActive
                             ? 'text-teal-100 border-r-4 border-teal-100'
                             : 'text-white'
-                        } flex w-full gap-4 justify-between items-center px-2 h-12 rounded group my-3`}
+                        )}
                       >
                         <div className='flex items-center w-full gap-2 p-3 rounded-sm group-hover:text-slate-800 hover:bg-slate-300'>
                           <div className='w-9 h-9 font-medium flex items-center justify-center text-lg'>
@@ -80,11 +82,10 @@ const SideNavbar: FC<Props> = ({ toggleNav }) => {
                               className='w-5 h-5 group-hover:text-primary-500'
                             />
                           </div>
-                          <p className='font-medium text-left sub_text nav_link'>
+                          <p className='font-medium text-left'>
                             {navItem.name}
                           </p>
                         </div>
-                        <div className='absolute right-0 hidden w-1 h-12 bg-primary-500 group-hover:flex rounded-s-md'></div>
                       </Link>
                     )}
                   </nav>
