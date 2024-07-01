@@ -36,7 +36,7 @@ const History = () => {
           >
             <Accordion.Panel className='flex gap-10'>
               <Accordion.Title
-                className='text-white focus:ring-0 focus:rounded hover:bg-transparent bg-transparent py-2'
+                className='text-white font-semibold focus:ring-2 focus:ring-gray-300 rounded hover:bg-cyan-800 bg-transparent py-2'
                 onClick={() => togglePanel(journal._id as string)}
               >
                 {journal.title}
