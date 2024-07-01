@@ -38,13 +38,13 @@ export const Modal: FC<Props> = ({ showModal, closeModal, children }) => {
           <div className='overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none'>
             <div
               ref={modalRef}
-              className='relative w-auto my-6 mx-auto max-w-3xl'
+              className='relative w-auto my-20 mx-auto max-w-3xl'
             >
               {/*body*/}
-              <div className='relative top-10 p-6 flex-auto'>{children}</div>
+              <div className='relative px-4 flex-auto'>{children}</div>
             </div>
           </div>
-          <div className='opacity-70 fixed inset-0 z-40 bg-black'></div>
+          <div className='opacity-45 fixed inset-0 z-40 bg-black'></div>
         </>
       ) : null}
     </>

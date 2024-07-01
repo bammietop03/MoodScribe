@@ -33,7 +33,7 @@ const Resources: FC = () => {
   return (
     <>
       <div className='flex justify-end mt-8 mb-8 p-4'>
-        <form className='w-full max-w-md'>
+        <form className='w-full max-w-md mx-1'>
           <label
             htmlFor='default-search'
             className='mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white'
@@ -62,7 +62,7 @@ const Resources: FC = () => {
           </div>
         </form>
       </div>
-      <div className='container mx-auto max-w-2xl text-white my-6'>
+      <div className='container mx-auto max-w-2xl text-white mt-6 mb-10 px-4'>
         <h1 className='font-bold text-2xl text-center'>
           Discover Helpful Articles & Tips
         </h1>
