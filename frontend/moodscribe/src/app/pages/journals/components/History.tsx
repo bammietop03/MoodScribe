@@ -31,12 +31,12 @@ const History = () => {
       {journals.journals.length > 0 ? (
         journals.journals.map((journal) => (
           <Accordion
-            className='divide-gray-500 border-cyan-800 mb-4'
+            className='divide-cyan-800 border-cyan-800 mb-4'
             key={journal._id}
           >
             <Accordion.Panel className='flex gap-10'>
               <Accordion.Title
-                className='text-white font-semibold focus:ring-2 focus:ring-gray-300 rounded hover:bg-cyan-800 bg-transparent py-2'
+                className='text-white font-semibold focus:ring-2 focus:ring-cyan-600 rounded hover:bg-cyan-800 bg-transparent py-2'
                 onClick={() => togglePanel(journal._id as string)}
               >
                 {journal.title}
