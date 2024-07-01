@@ -122,7 +122,10 @@ const Signup: FC = () => {
             className='py-3 mb-5 mt-12 text-teal-100 font-semibold bg-slate-300 bg-opacity-50 hover:bg-cyan-500 hover:text-white w-full border rounded-3xl'
           >
             {loading && (
-              <Icon icon='eos-icons:loading' className='inline-block h-6 w-6' />
+              <Icon
+                icon='eos-icons:loading'
+                className='inline-block h-7 w-7 mr-2 mb-1'
+              />
             )}
             CREATE ACCOUNT
           </button>
