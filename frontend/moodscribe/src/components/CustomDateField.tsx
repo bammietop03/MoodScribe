@@ -8,7 +8,7 @@ import { ErrorMessage } from './ErrorMessage';
 
 type ReactDatePickPropsWithoutOnChange = Omit<
   DatePickerProps,
-  'onChange' | 'selectsMultiple'
+  'onChange' | 'selectsMultiple' | 'selectsRange'
 >;
 
 type InputDateFieldProps = {
@@ -38,7 +38,6 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
   return (
     <>
       <label htmlFor={name} id={name} className={clsx('mt-5 block')}>
-        {' '}
         {label}
         {isRequired && <span className='ml-1 hidden text-red-600'>*</span>}
       </label>
@@ -55,17 +54,20 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
               )}
               placeholderText={placeholder}
               closeOnScroll={true}
-              selected={field.value}
+              selected={
+                field.value
+                  ? field.value instanceof Date
+                    ? field.value
+                    : new Date(field.value)
+                  : null
+              }
               dateFormat={dateFormat}
               name={name}
-              onChange={(date: [Date | null, Date | null]) =>
-                field.onChange(date)
-              }
+              onChange={(date: Date | null) => field.onChange(date)}
               showMonthDropdown
               autoComplete='off'
               showYearDropdown
               dropdownMode='select'
-              selectsRange={true}
               showTimeSelect
               timeIntervals={1}
               ref={(elem) => {
