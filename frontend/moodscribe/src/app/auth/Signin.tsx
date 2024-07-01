@@ -74,7 +74,7 @@ const Signin = () => {
 
       <div className='container mx-auto max-w-lg max-h-[640px] bg-bg-800 sm:p-14 p-10 m-6 shadow-xl shadow-stone-500 overflow-y-scroll'>
         <h1 className='text-gray-400 text-lg text-center mb-14'>
-          Existing ACCOUNT
+          EXISTING ACCOUNT
         </h1>
         <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
           <InputField
