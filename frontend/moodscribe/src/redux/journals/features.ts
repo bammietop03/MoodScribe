@@ -122,7 +122,7 @@ const journalsSlice = createSlice({
 
       return state;
     },
-    deleteJournalSuccess: (state, action: PayloadAction<number>) => {
+    deleteJournalSuccess: (state, action: PayloadAction<string>) => {
       state.journals.journals = state.journals.journals.filter(
         (journal) => journal._id !== action.payload
       );
@@ -189,7 +189,7 @@ export const {
 export const deleteJournalReducer = deleteJournalSlice.reducer;
 
 export const deleteJournal =
-  (id: number): AppThunk =>
+  (id: string): AppThunk =>
   async (dispatch) => {
     try {
       const response = await base.delete(`/journal/${id}`, authHeader());

@@ -8,7 +8,6 @@ import { useAppDispatch, useAppSelector } from '../../../redux/store';
 const Journals = () => {
   const dispatch = useAppDispatch();
   const [newEntry, setNewEntry] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [history, setHistory] = useState(false);
   const { user } = useAppSelector((state) => state.user);
   const firstName = user?.fullName.split(' ')[0];
@@ -30,11 +29,11 @@ const Journals = () => {
   };
 
   return (
-    <section className='container mx-auto max-w-2xl px-4 py-12 h-full text-white'>
+    <section className='container mx-auto max-w-2xl px-4 md:py-14 py-10 h-full text-white'>
       <h1 className='text-2xl text-center'>
         Hello {firstNameToCaps}. Welcome to your journal
       </h1>
-      <div className='flex space-x-6 mt-16'>
+      <div className='flex space-x-6 mt-16 font-bold'>
         <span
           className={clsx(
             'cursor-pointer pb-2',

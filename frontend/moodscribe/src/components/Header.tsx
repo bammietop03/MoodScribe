@@ -2,7 +2,7 @@ import { FC, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import logo from '../assets/logo.png';
+import logo from '../assets/logo-white.png';
 import { RootState, useAppDispatch, useAppSelector } from '../redux/store';
 import { signout } from '../redux/auth/features';
 
@@ -26,7 +26,7 @@ export const Header: FC = () => {
       ];
 
   return (
-    <header className=' absolute right-0 left-0 z-50 bg-white pl-4 pr-6'>
+    <header className=' absolute right-0 left-0 z-50 bg-white pl-4 md:pr-6 pr-3'>
       <div className='flex items-center justify-between h-16 py-3'>
         <Link to='/'>
           <img className='' src={logo} alt='Moodscribe logo' />
@@ -54,7 +54,7 @@ export const Header: FC = () => {
             className={`${genericHamburgerLine} ${
               isOpen
                 ? '-translate-y-3 -rotate-45 opacity-50 group-hover:opacity-100 my-1'
-                : 'opacity-50 group-hover:opacity-100 my-[3px]'
+                : 'opacity-50 group-hover:opacity-100 my-[4px]'
             }`}
           />
         </button>

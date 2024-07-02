@@ -20,7 +20,7 @@ export interface QuoteItem {
   quote: string;
   icon: string;
   color: string;
-  _id?: number;
+  _id?: string;
 }
 
 export interface Quote {
@@ -38,7 +38,7 @@ export interface JournalItem {
   title: string;
   content: string;
   date: Date;
-  _id?: number;
+  _id?: string;
 }
 export interface JournalValues {
   journals: JournalItem[];

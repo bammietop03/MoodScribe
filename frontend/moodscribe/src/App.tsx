@@ -8,11 +8,12 @@ import Dashboard from './app/pages/dashboard/Dashboard';
 import { RootState, useAppSelector } from './redux/store';
 
 const App: FC = () => {
-  const { token } = useAppSelector((state: RootState) => state.signin);
-  const isAuthenticated = token ? true : false;
+  const isAuthenticated = useAppSelector(
+    (state: RootState) => state.signin.isAuthenticated
+  );
 
   return (
-    <div className=''>
+    <div>
       <Router>
         <Routes>
           <Route path='/' element={<Home />} />

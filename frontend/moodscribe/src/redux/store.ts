@@ -25,7 +25,7 @@ import {
 import { signinReducer, signupReducer, userReducer } from './auth/features';
 import tokenExpirationMiddleware from '../utils/tokenExpirationMiddleware';
 import { journalsReducer, addJournalReducer } from './journals/features';
-import { articlessReducer } from './articles/features';
+import { articlesReducer, articlesSearchReducer } from './articles/features';
 
 const persistConfig = {
   key: 'root',
@@ -42,7 +42,8 @@ const rootReducer = combineReducers({
   deleteQuote: deleteQuoteReducer,
   journal: addJournalReducer,
   journals: journalsReducer,
-  articles: articlessReducer,
+  articles: articlesReducer,
+  articlesSearch: articlesSearchReducer,
 });
 
 // storage.removeItem('persist:root');

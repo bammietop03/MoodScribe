@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Accordion, Tooltip } from 'flowbite-react';
 import {
   RootState,
@@ -11,28 +11,39 @@ import {
 } from '../../../../redux/journals/features';
 import { Icon } from '@iconify/react/dist/iconify.js';
 import { formatDate } from '../../../../utils/helpers';
+import clsx from 'clsx';
 
 const History = () => {
   const dispatch = useAppDispatch();
   const { journals } = useAppSelector((state: RootState) => state.journals);
+  const [openPanel, setOpenPanel] = useState<string | null>(null);
 
   useEffect(() => {
     dispatch(getJournals());
   }, [dispatch]);
+
+  const togglePanel = (id: string) => {
+    setOpenPanel((prevOpenPanel) => (prevOpenPanel === id ? null : id));
+  };
+
   return (
     <div className='my-7'>
-      {' '}
       {journals.journals.length > 0 ? (
         journals.journals.map((journal) => (
           <Accordion
-            className='divide-gray-500 border-cyan-800 mb-4 '
+            className='divide-cyan-800 border-cyan-800 mb-4'
             key={journal._id}
           >
             <Accordion.Panel className='flex gap-10'>
-              <Accordion.Title className='text-white focus:ring-0 focus:rounded hover:bg-transparent bg-transparent py-2'>
+              <Accordion.Title
+                className='text-white font-semibold focus:ring-2 focus:ring-cyan-600 rounded hover:bg-cyan-800 bg-transparent py-2'
+                onClick={() => togglePanel(journal._id as string)}
+              >
                 {journal.title}
               </Accordion.Title>
-              <Accordion.Content>
+              <Accordion.Content
+                className={clsx(openPanel === journal._id ? 'block' : 'hidden')}
+              >
                 <span className='block mb-6 text-sm text-gray-300'>
                   {formatDate(journal.date as unknown as string)}
                 </span>
@@ -41,7 +52,7 @@ const History = () => {
                   <button
                     className='py-2 px-5 text-red-500 font-semibold bg-slate-600 hover:bg-slate-700 rounded'
                     onClick={() =>
-                      dispatch(deleteJournal(journal._id as number))
+                      dispatch(deleteJournal(journal._id as string))
                     }
                   >
                     Delete
@@ -63,9 +74,8 @@ const History = () => {
           </Accordion>
         ))
       ) : (
-        <div className='flex justify-center items-center h-96 '>
+        <div className='flex justify-center items-center h-96'>
           <p className='text-lg bg-gradient-to-r from-teal-100 via-amber-500 to-cyan-400 bg-clip-text text-transparent'>
-            {' '}
             Your Journal List is empty. Create a new entry?
           </p>
         </div>

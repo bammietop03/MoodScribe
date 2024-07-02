@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { FC, KeyboardEvent, MouseEvent } from 'react';
 import { useForm, SubmitHandler, Control } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -42,13 +44,32 @@ const mood: MoodEmojis[] = [
   { icon: 'icomoon-free:shocked2', name: 'Shocked', value: 6 },
 ];
 
-const NewEntry = () => {
+const NewEntry: FC = () => {
   const dispatch = useAppDispatch();
   const [selectedMood, setSelectedMood] = useState<MoodEmojis | null>(null);
   const { success, loading } = useAppSelector(
     (state: RootState) => state.journal
   );
   const [showMessage, setShowMessage] = useState(false);
+
+  useEffect(() => {
+    // Show the message
+    success && setShowMessage(true);
+
+    // Hide the message after 2 seconds
+    const timer = setTimeout(() => {
+      setShowMessage(false);
+    }, 3000);
+
+    // Cleanup the timer on component unmount
+    return () => clearTimeout(timer);
+  }, [success]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(clearJournalState());
+    };
+  }, [dispatch]);
 
   const {
     control,
@@ -81,24 +102,11 @@ const NewEntry = () => {
     setSelectedMood(mood);
   };
 
-  useEffect(() => {
-    // Show the message
-    success && setShowMessage(true);
-
-    // Hide the message after 2 seconds
-    const timer = setTimeout(() => {
-      setShowMessage(false);
-    }, 3000);
-
-    // Cleanup the timer on component unmount
-    return () => clearTimeout(timer);
-  }, [success]);
-
-  useEffect(() => {
-    return () => {
-      dispatch(clearJournalState());
-    };
-  }, [dispatch]);
+  const handleSave = () => {
+    if (success) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  };
 
   return (
     <div>
@@ -113,6 +121,15 @@ const NewEntry = () => {
             errorMessage={errors.date?.message}
             isRequired
             excludeScrollbar={undefined}
+            onSelect={function (
+              _date: Date | null,
+              _event:
+                | MouseEvent<HTMLElement>
+                | KeyboardEvent<HTMLElement>
+                | undefined
+            ): void {
+              throw new Error('Function not implemented.');
+            }}
           />
         </div>
 
@@ -147,7 +164,6 @@ const NewEntry = () => {
           type={'text'}
           control={control}
           registration={{ ...register('title') }}
-          placeholder='Enter your full name'
           errorMessage={errors.title?.message}
           isRequired
           className='bg-slate-700 bg-opacity-40  py-3 px-2 mt-1 text-white'
@@ -169,6 +185,7 @@ const NewEntry = () => {
               'py-3 px-20 mb-5 mt-8 text-teal-100 font-semibold bg-slate-300 bg-opacity-50 hover:bg-cyan-500 hover:text-white border rounded-3xl',
               loading ? 'cursor-progress' : ''
             )}
+            onClick={handleSave}
           >
             SAVE
           </button>

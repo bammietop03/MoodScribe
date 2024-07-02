@@ -13,7 +13,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         position='top-right'
         richColors
         closeButton
-        duration={12000}
+        duration={5000}
         toastOptions={{
           style: { height: '64px' },
         }}

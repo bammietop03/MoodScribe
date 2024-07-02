@@ -46,7 +46,7 @@ const quotesSlice = createSlice({
       state.status = 'failed';
       state.error = action.payload;
     },
-    deleteQuoteSuccess: (state, action: PayloadAction<number>) => {
+    deleteQuoteSuccess: (state, action: PayloadAction<string>) => {
       state.quotes.quote = state.quotes.quote.filter(
         (quote) => quote._id !== action.payload
       );
@@ -153,7 +153,7 @@ export const { deleteQuoteRequest, deleteQuoteSuccess, deleteQuoteFailure } =
 export const deleteQuoteReducer = deleteQuoteSlice.reducer;
 
 export const deleteQuote =
-  (id: number): AppThunk =>
+  (id: string): AppThunk =>
   async (dispatch) => {
     try {
       const response = await base.delete(`/quote/${id}`, authHeader());

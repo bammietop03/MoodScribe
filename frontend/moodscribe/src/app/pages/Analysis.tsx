@@ -26,9 +26,25 @@ const Analysis = () => {
       y: {
         beginAtZero: true,
         max: 8,
+
+        ticks: {
+          color: '#C5C5C5',
+          padding: 10,
+        },
+      },
+      x: {
+        ticks: {
+          color: '#C5C5C5',
+        },
       },
     },
     plugins: {
+      legend: {
+        labels: {
+          // padding: 20, // Adjust the padding around the legend label
+          color: '#C5C5C5', // Change color of legend labels
+        },
+      },
       tooltip: {
         callbacks: {
           // eslint-disable-next-line @typescript-eslint/no-explicit-any

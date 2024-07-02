@@ -2,12 +2,14 @@ import { Controller, FieldError, UseControllerProps } from 'react-hook-form';
 import DatePicker, { DatePickerProps } from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import React from 'react';
-// import dayjs from 'dayjs';
 import clsx from 'clsx';
 
 import { ErrorMessage } from './ErrorMessage';
 
-type ReactDatePickPropsWithoutOnChange = Omit<DatePickerProps, 'onChange'>;
+type ReactDatePickPropsWithoutOnChange = Omit<
+  DatePickerProps,
+  'onChange' | 'selectsMultiple' | 'selectsRange'
+>;
 
 type InputDateFieldProps = {
   name: string;
@@ -27,7 +29,7 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
   hasError,
   className,
   placeholder = 'Select date',
-  dateFormat = 'MMMM d, yyyy',
+  dateFormat = 'MMMM d, yyyy HH:mm:ss',
   isRequired,
   control,
   errorMessage,
@@ -36,7 +38,6 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
   return (
     <>
       <label htmlFor={name} id={name} className={clsx('mt-5 block')}>
-        {' '}
         {label}
         {isRequired && <span className='ml-1 hidden text-red-600'>*</span>}
       </label>
@@ -51,19 +52,24 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
                 hasError && 'border-red-500',
                 className
               )}
-              // formatWeekDay={(day) => dayjs(day).format('ddd')}
               placeholderText={placeholder}
               closeOnScroll={true}
-              selected={field.value}
+              selected={
+                field.value
+                  ? field.value instanceof Date
+                    ? field.value
+                    : new Date(field.value)
+                  : null
+              }
               dateFormat={dateFormat}
               name={name}
-              onChange={(date: [Date | null, Date | null]) =>
-                field.onChange(date)
-              }
+              onChange={(date: Date | null) => field.onChange(date)}
               showMonthDropdown
               autoComplete='off'
               showYearDropdown
               dropdownMode='select'
+              showTimeSelect
+              timeIntervals={1}
               ref={(elem) => {
                 elem &&
                   field.ref(
@@ -76,7 +82,9 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
         )}
       />
 
-      {errorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      {errorMessage && (
+        <ErrorMessage className='ml-2'>{errorMessage}</ErrorMessage>
+      )}
     </>
   );
 };

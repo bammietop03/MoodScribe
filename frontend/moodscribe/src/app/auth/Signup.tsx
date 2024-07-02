@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -27,7 +27,7 @@ const validationSchema = Yup.object().shape({
     ),
 });
 
-const Signup = () => {
+const Signup: FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
@@ -39,9 +39,8 @@ const Signup = () => {
   useEffect(() => {
     if (success) {
       toast.success("You've successfully registered", { id: toastId });
+      navigate('/auth/signin');
     }
-
-    navigate('/auth/signin');
   }, [navigate, success, toastId]);
 
   useEffect(() => {
@@ -123,7 +122,10 @@ const Signup = () => {
             className='py-3 mb-5 mt-12 text-teal-100 font-semibold bg-slate-300 bg-opacity-50 hover:bg-cyan-500 hover:text-white w-full border rounded-3xl'
           >
             {loading && (
-              <Icon icon='eos-icons:loading' className='inline-block ' />
+              <Icon
+                icon='eos-icons:loading'
+                className='inline-block h-7 w-7 mr-2 mb-1'
+              />
             )}
             CREATE ACCOUNT
           </button>
