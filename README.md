@@ -14,10 +14,15 @@
 
 ## Technology Stack
 ***Frontend***: React - Vite, Tailwind CSS, Typescript
+
 ***Backend***: Node.js, Express
+
 ***Database***: MongoDB
+
 ***State Management***: Redux toolkit
+
 ***APIs***: News API
+
 ***Charts***: Chart.js with react-chartjs-2
 
 
