@@ -3,9 +3,13 @@
 
 ## Architecture Overview
 ***Frontend***: React + Vite + TS with Tailwind CSS for styling, Chart.js with react-chartjs-2 for mood visualization, React-hook-form with Yup validation, and Flowbite for components.
+
 ***Backend***: Node.js with Express framework for handling API requests, and Json Web Token (JWT) for authorization.
+
 ***Database***: MongoDB for storing user data and journal entries.
+
 ***State Management***: Redux toolkit for managing application state.
+
 ***APIs***: Integrated third-party APIs for fetching useful mental health articles.
 
 ## Technology Stack
