@@ -27,53 +27,53 @@
 
 ### Steps for Backend
 
-Clone the repository:
+##### Clone the repository:
     git clone https://github.com/bammietop03/MoodScribe.git
 
-Navigate to the project directory:
+##### Navigate to the project directory:
     cd /backend
 
-Install the dependencies:
+##### Install the dependencies:
     npm install
 
-Create a .env file in the root directory and add your MongoDB URL and database name:
+##### Create a .env file in the root directory and add your MongoDB URL and database name:
     DB_URL=mongodb://localhost:27017
     DB_DATABASE=moodscribe
     JWT_SECRET=your_secret_key
 
-Start the MongoDB server:
+##### Start the MongoDB server:
     mongod
 
-Start the application:
+##### Start the application:
     npm start or npm run dev
 The server should be running on http://localhost:5000.
 
 ### Steps for Frontend
 
-Clone the repository:
+##### Clone the repository:
     git clone https://github.com/bammietop03/MoodScribe.git
 
-Navigate to the project directory:
+##### Navigate to the project directory:
     cd /frontend/moodscribe
 
-Install the dependencies:
+##### Install the dependencies:
     npm install
 
-Start the application:
+##### Start the application:
     npm run dev
 
 
 ### API Documentation
-The API is documented using Swagger. After starting the server, you can access the Swagger UI at:
+##### The API is documented using Swagger. After starting the server, you can access the Swagger UI at:
     http://localhost:5000/api-docs
 
 ### Testing
 Running Tests
-Ensure your database is running, then run the tests using the following command:
+##### Ensure your database is running, then run the tests using the following command:
     npm test
 
 ### Contributing
-Contributions are welcome! Please fork the repository and submit a pull request.
+##### Contributions are welcome! Please fork the repository and submit a pull request.
     Fork the repository
     Create a new branch (git checkout -b feature/your-feature)
     Commit your changes (git commit -m 'Add some feature')
