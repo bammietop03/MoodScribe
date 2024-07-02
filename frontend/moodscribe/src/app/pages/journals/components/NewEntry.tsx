@@ -59,7 +59,7 @@ const NewEntry: FC = () => {
     // Hide the message after 2 seconds
     const timer = setTimeout(() => {
       setShowMessage(false);
-    }, 3000);
+    }, 4000);
 
     // Cleanup the timer on component unmount
     return () => clearTimeout(timer);

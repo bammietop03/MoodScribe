@@ -110,6 +110,7 @@ export const addQuote =
     try {
       const response = await base.post('/quote', quote, authHeader());
       dispatch(addQuoteSuccess(response.data));
+      dispatch(addQuoteSuccess(response.data));
     } catch (error) {
       dispatch(addQuoteFailure(handleErrors(error)));
     }
