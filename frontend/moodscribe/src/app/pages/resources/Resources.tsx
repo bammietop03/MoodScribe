@@ -48,7 +48,7 @@ const Resources: FC = () => {
               type='search'
               id='default-search'
               className='block w-full py-3 px-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-cyan-400 focus:border-cyan-400 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
-              placeholder='Search more mental tips...'
+              placeholder='Search more mental health tips...'
               required
               onChange={(e) => setSearchValue(e.target.value)}
             />

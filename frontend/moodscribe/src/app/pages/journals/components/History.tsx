@@ -26,10 +26,14 @@ const History = () => {
     setOpenPanel((prevOpenPanel) => (prevOpenPanel === id ? null : id));
   };
 
+  const sortedJournals = [...journals.journals].sort(function (a, b) {
+    return new Date(b.date).getTime() - new Date(a.date).getTime();
+  });
+
   return (
     <div className='my-7'>
       {journals.journals.length > 0 ? (
-        journals.journals.map((journal) => (
+        sortedJournals.map((journal) => (
           <Accordion
             className='divide-cyan-800 border-cyan-800 mb-4'
             key={journal._id}

@@ -37,7 +37,7 @@ const Signin = () => {
 
     setTimeout(() => {
       if (token) navigate('/dashboard');
-    }, 1000);
+    }, 500);
   }, [navigate, success, toastId, token]);
 
   useEffect(() => {
