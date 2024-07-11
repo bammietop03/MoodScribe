@@ -86,7 +86,7 @@ const ArticlesSearchInitialState: ArticlesSearchState = {
   error: '',
 };
 
-// Get Articles slice
+// Search Articles slice
 const articlesSearchSlice = createSlice({
   name: 'articles',
   initialState: ArticlesSearchInitialState,

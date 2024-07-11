@@ -11,6 +11,7 @@ const base = axios.create({
   baseURL: baseUrlApi,
 });
 
+// Signup
 export interface UserRegistration {
   user: SignupValues | null;
   success: boolean;
@@ -77,6 +78,7 @@ export const signup =
     }
   };
 
+// Signin
 export interface Signin {
   token: string | null;
   isAuthenticated: boolean;
@@ -135,7 +137,7 @@ const signinSlice = createSlice({
       state.token = null;
       state.isAuthenticated = false;
       state.expirationTime = null;
-      localStorage.setItem('token', '');
+      localStorage.removeItem('token');
     },
   },
 });
