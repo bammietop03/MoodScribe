@@ -18,6 +18,26 @@ body {
   width: 100%;
 }
 
+.react-datepicker__month-select,
+.react-datepicker__year-select {
+  font-size: small;
+  border: none;
+  padding: 2px 6px;
+}
+
+.react-datepicker__header__dropdown--select {
+  margin: 7px 2px 3px;
+}
+
+.react-datepicker-time__input {
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+.react-datepicker-time__input:focus {
+  border: 1px solid #3992b3;
+}
+
 [type='text']:focus,
 [type='password']:focus,
 select:focus,

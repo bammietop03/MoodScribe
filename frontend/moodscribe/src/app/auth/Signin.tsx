@@ -64,7 +64,7 @@ const Signin = () => {
   const onSubmit: SubmitHandler<SigninValues> = (data: SigninValues, e) => {
     e?.preventDefault();
     dispatch(signin(data));
-    reset();
+    success && reset();
   };
   return (
     <div className='fixed right-0 left-0 h-screen bg-bg-100 bg-opacity-60 p-3'>

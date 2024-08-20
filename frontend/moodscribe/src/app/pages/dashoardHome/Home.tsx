@@ -76,7 +76,7 @@ const Home: FC = () => {
           </p>
         </section>
         <section className='sm:grid grid-cols-auto-fit-100 gap-4'>
-          {quotes.quote.map((quote, idx) => (
+          {quotes.quote?.map((quote, idx) => (
             <div
               key={quote._id || idx}
               className={clsx(

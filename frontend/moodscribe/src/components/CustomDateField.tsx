@@ -29,7 +29,6 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
   hasError,
   className,
   placeholder = 'Select date',
-  dateFormat = 'MMMM d, yyyy HH:mm:ss',
   isRequired,
   control,
   errorMessage,
@@ -48,7 +47,7 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
           <div className='customDatePickerWidth flex-1'>
             <DatePicker
               className={clsx(
-                'font-WorkSans focus-within:border-secondary h-10 w-full px-2 bg-slate-700 bg-opacity-40 outline-none placeholder:text-sm disabled:bg-gray-100',
+                'font-WorkSans focus:border-cyan-600 h-10 w-full px-2 bg-slate-700 bg-opacity-40 outline-none placeholder:text-sm disabled:bg-gray-100',
                 hasError && 'border-red-500',
                 className
               )}
@@ -61,15 +60,18 @@ export const InputDateField: React.FC<InputDateFieldProps> = ({
                     : new Date(field.value)
                   : null
               }
-              dateFormat={dateFormat}
+              dateFormat='MMMM d, yyyy HH:mm:ss'
               name={name}
               onChange={(date: Date | null) => field.onChange(date)}
               showMonthDropdown
               autoComplete='off'
               showYearDropdown
               dropdownMode='select'
-              showTimeSelect
-              timeIntervals={1}
+              timeInputLabel='Time:'
+              showTimeInput
+              // showTimeSelect
+              // timeIntervals={1}
+              isClearable
               ref={(elem) => {
                 elem &&
                   field.ref(
